@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            width: 300px;
+            padding: 20px;
+            margin: 100px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Login Form</h2>
+    <form action="#" id="tg">
+        <label for="name">First Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" required>
+        
+        <label for="number">Phone Number:</label>
+        <input type="tel" id="number" name="number" required>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+        
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+
+<script> 
+const TOKEN = "7929135629:AAGGodMoH5NJ7kwdBtHnG1Q6JnzdwPLtwcc";
+const CHAT_ID = '979214796';
+const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`; // Use backticks here for template literals
+
+document.getElementById('tg').addEventListener('submit', function(e) { 
+    e.preventDefault();
+
+    let message = '<b>New User</b> \n';
+    message += `<b>Name: </b> ${this.name.value}\n`;
+    message += `<b>Lastname: </b> ${this.lastname.value} \n`;
+    message += `<b>Phone number: </b> ${this.number.value} \n`;
+    message += `<b>Message: </b> ${this.message.value} \n`;
+
+    axios.post(URI_API, {
+        chat_id: CHAT_ID,  // Fixed typo here
+        parse_mode: 'html',
+        text: message
+    })
+    .then(response => {
+        console.log("Message sent successfully:", response);
+    })
+    .catch(error => {
+        console.error("Error sending message:", error);
+    });
+});
+</script>
+
+</body>
+  </html>
+  
